@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeFile } from "fs/promises";
-import path from "path";
 import { v2 as cloudinary } from "cloudinary";
-
+import streamifier from "streamifier";
 import { connectDB } from "@/lib/mongodb";
 import User from "@/model/user";
 
@@ -21,6 +19,12 @@ export async function POST(
 
     const { id } = await params;
 
+    const existingUser = await User.findById(id);
+
+    if (!existingUser) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+
     const formData = await req.formData();
 
     const file = formData.get("avatar") as File;
@@ -32,15 +36,44 @@ export async function POST(
       );
     }
 
+    if (!file.type.startsWith("image/")) {
+      return NextResponse.json(
+        { message: "Only image files allowed" },
+        { status: 400 },
+      );
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      return NextResponse.json(
+        { message: "Image must be less than 5MB" },
+        { status: 400 },
+      );
+    }
+
     const bytes = await file.arrayBuffer();
+
     const buffer = Buffer.from(bytes);
 
-    const tempPath = path.join(process.cwd(), file.name);
+    const uploaded = await new Promise<{
+      secure_url: string;
+    }>((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        {
+          folder: "whitearmy/avatar",
+        },
 
-    await writeFile(tempPath, buffer);
+        (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve({
+              secure_url: result!.secure_url,
+            });
+          }
+        },
+      );
 
-    const uploaded = await cloudinary.uploader.upload(tempPath, {
-      folder: "whitearmy/avatar",
+      streamifier.createReadStream(buffer).pipe(stream);
     });
 
     const user = await User.findByIdAndUpdate(
@@ -53,16 +86,12 @@ export async function POST(
       },
     ).select("-password");
 
-    if (!user) {
-      return NextResponse.json({ message: "User not found" }, { status: 404 });
-    }
-
     return NextResponse.json({
       message: "Avatar Updated",
       user,
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
 
     return NextResponse.json({ message: "Server Error" }, { status: 500 });
   }
