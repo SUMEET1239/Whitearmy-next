@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { connectDB } from "@/lib/mongodb";
 import Tournament from "@/model/tournament";
 import User from "@/model/user";
+import { sendEmail } from "@/lib/sendEmail";
 
 export async function POST(
   req: NextRequest,
@@ -41,7 +42,6 @@ export async function POST(
       );
     }
 
-    // Already joined
     if (
       tournament.players.some(
         (playerId: any) => playerId.toString() === user._id.toString(),
@@ -50,12 +50,13 @@ export async function POST(
       return NextResponse.json({ message: "Already Joined" }, { status: 400 });
     }
 
-    // Max players
-    if (tournament.players.length >= tournament.maxPlayers) {
+    if (
+      tournament.maxPlayers > 0 &&
+      tournament.players.length >= tournament.maxPlayers
+    ) {
       return NextResponse.json({ message: "Tournament Full" }, { status: 400 });
     }
 
-    // Wallet check
     if (user.wallet < tournament.entryFee) {
       return NextResponse.json(
         { message: "Insufficient Wallet Balance" },
@@ -63,10 +64,8 @@ export async function POST(
       );
     }
 
-    // Deduct wallet
     user.wallet -= tournament.entryFee;
 
-    // Transaction History
     user.transactions.push({
       type: "debit",
       amount: tournament.entryFee,
@@ -79,6 +78,51 @@ export async function POST(
     tournament.players.push(user._id);
 
     await tournament.save();
+
+    // Email notification to player
+
+    await sendEmail(
+      user.email,
+      "Tournament Joined Successfully 🔥",
+      `
+      <div style="font-family:Arial;padding:20px">
+
+        <h2>🔥 WhiteArmy Gaming</h2>
+
+        <p>Hello ${user.name},</p>
+
+        <p>
+          You have successfully joined the tournament.
+        </p>
+
+        <h3>${tournament.title}</h3>
+
+        <p>🎮 Game: ${tournament.game}</p>
+
+        <p>📅 Date: ${tournament.date}</p>
+
+        <p>
+          💰 Entry Fee Paid: ₹${tournament.entryFee}
+        </p>
+
+        <p>
+          👥 Players:
+          ${tournament.players.length}/${tournament.maxPlayers}
+        </p>
+
+        <br/>
+
+        <p>
+          Get ready and show your skills! 🎮🔥
+        </p>
+
+        <b>
+          WhiteArmy Gaming
+        </b>
+
+      </div>
+      `,
+    );
 
     return NextResponse.json({
       message: "Tournament Joined Successfully",

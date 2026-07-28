@@ -52,77 +52,102 @@ export default function Home() {
   };
 
   return (
-    <main className="bg-[#0f0f0f] text-white">
+    <main className="min-h-screen bg-[#050505] text-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#1a1a1a] to-black px-5 py-24 text-center">
-        <h1 className="text-5xl font-bold text-red-600">
-          🔥 WhiteArmy Tournaments
-        </h1>
+      <section className="relative overflow-hidden bg-gradient-to-br from-red-950 via-black to-black px-5 py-28 text-center">
+        {/* Glow */}
+        <div className="absolute left-1/2 top-20 h-72 w-72 -translate-x-1/2 rounded-full bg-red-600/20 blur-3xl" />
 
-        <p className="mx-auto mt-5 max-w-2xl text-lg text-gray-400">
-          Join competitive gaming tournaments & win rewards 🎮
-        </p>
+        <div className="relative z-10">
+          <h1 className="text-5xl font-black tracking-wide md:text-7xl">
+            🔥{" "}
+            <span className="bg-gradient-to-r from-red-500 to-red-300 bg-clip-text text-transparent">
+              WhiteArmy
+            </span>{" "}
+            Tournaments
+          </h1>
 
-        <button
-          onClick={handleJoinNow}
-          className="mt-8 rounded-xl bg-gradient-to-r from-red-600 to-red-400 px-8 py-3 font-semibold shadow-lg shadow-red-600/30 transition hover:scale-105"
-        >
-          🚀 Join Now
-        </button>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400 md:text-xl">
+            Join competitive gaming battles, challenge top players, climb the
+            leaderboard and win exciting rewards 🎮🏆
+          </p>
+
+          <button
+            onClick={handleJoinNow}
+            className="mt-10 rounded-xl bg-gradient-to-r from-red-600 to-orange-500 px-10 py-4 font-bold shadow-[0_0_30px_rgba(239,68,68,0.5)] transition-all duration-300 hover:scale-110 hover:shadow-[0_0_50px_rgba(239,68,68,0.8)]"
+          >
+            🚀 Join Battle
+          </button>
+        </div>
       </section>
 
       {/* How it Works */}
-      <section className="px-5 py-16 text-center">
-        <h2 className="text-3xl font-bold">⚡ How It Works</h2>
+      <section className="px-5 py-20">
+        <h2 className="text-center text-4xl font-black">
+          ⚡ <span className="text-red-500">How It Works</span>
+        </h2>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-xl border border-zinc-700 bg-zinc-900 p-6">
-            <h3 className="mb-2 text-xl font-semibold">1️⃣ Register</h3>
-            <p className="text-gray-400">Create your account and profile</p>
-          </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              title: "Register",
+              desc: "Create your account and build your gaming profile",
+            },
+            {
+              title: "Join",
+              desc: "Enter tournaments and challenge other players",
+            },
+            {
+              title: "Play",
+              desc: "Show your skills and dominate the arena",
+            },
+            {
+              title: "Win",
+              desc: "Earn points, rewards and glory",
+            },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="group rounded-2xl border border-zinc-800 bg-zinc-900/60 p-7 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-red-500 hover:shadow-[0_0_25px_rgba(239,68,68,0.25)]"
+            >
+              <h3 className="text-xl font-bold text-red-500">
+                {index + 1}️⃣ {item.title}
+              </h3>
 
-          <div className="rounded-xl border border-zinc-700 bg-zinc-900 p-6">
-            <h3 className="mb-2 text-xl font-semibold">2️⃣ Join</h3>
-            <p className="text-gray-400">Join any available tournament</p>
-          </div>
-
-          <div className="rounded-xl border border-zinc-700 bg-zinc-900 p-6">
-            <h3 className="mb-2 text-xl font-semibold">3️⃣ Play</h3>
-            <p className="text-gray-400">Compete and show your skills</p>
-          </div>
-
-          <div className="rounded-xl border border-zinc-700 bg-zinc-900 p-6">
-            <h3 className="mb-2 text-xl font-semibold">4️⃣ Win</h3>
-            <p className="text-gray-400">Earn points & rewards 🏆</p>
-          </div>
+              <p className="mt-3 text-zinc-400">{item.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Featured Tournaments */}
-      <section className="px-5 py-16 text-center">
-        <h2 className="text-3xl font-bold">🏆 Featured Tournaments</h2>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <section className="px-5 py-20">
+        <h2 className="text-center text-4xl font-black">
+          🏆 <span className="text-red-500">Featured Tournaments</span>
+        </h2>
+
+        <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {tournaments.map((tournament) => (
             <div
               key={tournament._id}
-              className="rounded-xl border border-zinc-700 bg-zinc-900 p-6"
+              className="group rounded-2xl border border-zinc-800 bg-gradient-to-br from-zinc-900 to-black p-7 transition-all duration-300 hover:-translate-y-3 hover:border-red-500 hover:shadow-[0_0_35px_rgba(239,68,68,0.3)]"
             >
-              <h3 className="text-2xl font-semibold">{tournament.title}</h3>
+              <h3 className="text-2xl font-bold">{tournament.title}</h3>
 
-              <p className="mt-2 text-gray-300">🎮 {tournament.game}</p>
+              <div className="mt-5 space-y-2 text-zinc-400">
+                <p>🎮 {tournament.game}</p>
 
-              <p className="text-gray-300">📅 {tournament.date}</p>
+                <p>📅 {tournament.date}</p>
 
-              <p className="text-gray-300">
-                👥 {tournament.players?.length} Players
-              </p>
+                <p>👥 {tournament.players?.length || 0} Players</p>
+              </div>
 
               <button
                 onClick={handleJoinNow}
-                className="mt-5 rounded bg-green-600 px-5 py-2 transition hover:bg-green-700"
+                className="mt-6 w-full rounded-xl bg-green-600 py-3 font-bold transition hover:bg-green-500 hover:shadow-[0_0_25px_rgba(34,197,94,0.5)]"
               >
-                Join
+                Join Tournament
               </button>
             </div>
           ))}
@@ -130,16 +155,21 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#111] px-5 py-20 text-center">
-        <h2 className="text-4xl font-bold">
+
+      <section className="relative overflow-hidden bg-gradient-to-r from-red-950 via-black to-red-950 px-5 py-24 text-center">
+        <h2 className="text-4xl font-black md:text-5xl">
           Ready to dominate the battlefield? 🔥
         </h2>
 
+        <p className="mt-4 text-zinc-400">
+          Join WhiteArmy and prove your skills.
+        </p>
+
         <button
           onClick={handleJoinNow}
-          className="mt-8 rounded-xl bg-gradient-to-r from-red-600 to-red-400 px-8 py-3 font-semibold shadow-lg shadow-red-600/30 transition hover:scale-105"
+          className="mt-8 rounded-xl bg-gradient-to-r from-red-600 to-orange-500 px-10 py-4 font-bold transition hover:scale-110 shadow-[0_0_30px_rgba(239,68,68,0.5)]"
         >
-          Join Now
+          🚀 Join Now
         </button>
       </section>
     </main>

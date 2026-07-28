@@ -5,6 +5,7 @@ import { connectDB } from "@/lib/mongodb";
 import Tournament from "@/model/tournament";
 import User from "@/model/user";
 import Player from "@/model/player";
+import { sendEmail } from "@/lib/sendEmail";
 
 export async function POST(
   req: NextRequest,
@@ -93,6 +94,55 @@ export async function POST(
 
       await player.save();
       await user.save();
+
+      // Winner Email Notification
+      await sendEmail(
+        user.email,
+        `🏆 Tournament Result - ${tournament.title}`,
+        `
+        <div style="font-family:Arial">
+
+          <h2>Congratulations ${user.name} 🎉</h2>
+
+          <p>
+          Tournament:
+          <b>${tournament.title}</b>
+          </p>
+
+          <p>
+          Your position:
+          <b>${winner.position}</b>
+          </p>
+
+          ${
+            winner.position === 1
+              ? `
+              <h3>🥇 You are the Champion!</h3>
+              <p>You earned 100 points.</p>
+              `
+              : winner.position === 2
+                ? `
+                <h3>🥈 Amazing Performance!</h3>
+                <p>You earned 60 points.</p>
+                `
+                : `
+                <h3>🥉 Great Job!</h3>
+                <p>You earned 30 points.</p>
+                `
+          }
+
+
+          <p>
+          Keep playing and dominate more tournaments 🔥
+          </p>
+
+          <br/>
+
+          <b>WhiteArmy Gaming 🎮</b>
+
+        </div>
+        `,
+      );
     }
 
     return NextResponse.json({

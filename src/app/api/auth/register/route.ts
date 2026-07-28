@@ -1,3 +1,4 @@
+import { sendEmail } from "@/lib/sendEmail";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
@@ -33,6 +34,37 @@ export async function POST(req: Request) {
       email,
       password: hashedPassword,
     });
+
+    // Welcome Email
+
+    await sendEmail(
+      user.email,
+      "Welcome to WhiteArmy 🔥",
+      `
+      <div style="font-family:Arial,sans-serif">
+
+        <h2>
+          Welcome ${user.name} 🎮
+        </h2>
+
+        <p>
+          Your WhiteArmy account has been created successfully.
+        </p>
+
+        <p>
+          You can now join gaming tournaments,
+          compete with players and win rewards 🏆
+        </p>
+
+        <br/>
+
+        <h3>
+          🔥 WhiteArmy Gaming
+        </h3>
+
+      </div>
+      `,
+    );
 
     return NextResponse.json(
       {

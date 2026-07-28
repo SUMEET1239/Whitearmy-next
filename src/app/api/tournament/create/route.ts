@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { connectDB } from "@/lib/mongodb";
 import Tournament from "@/model/tournament";
 import User from "@/model/user";
+import { sendEmail } from "@/lib/sendEmail";
 
 export async function POST(req: NextRequest) {
   try {
@@ -27,7 +28,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    // Sirf admin/leader tournament create kar sakta hai
     if (user.role !== "leader") {
       return NextResponse.json(
         { message: "Only leader can create tournament" },
@@ -54,6 +54,34 @@ export async function POST(req: NextRequest) {
       maxPlayers: Number(maxPlayers) || 0,
       createdBy: user._id,
     });
+
+    // Send notification email to leader
+    await sendEmail(
+      user.email,
+      "New Tournament Created - WhiteArmy Gaming 🔥",
+      `
+      <div style="font-family:Arial;padding:20px">
+        <h2>🔥 Tournament Created Successfully</h2>
+
+        <p>Hello ${user.name},</p>
+
+        <p>Your tournament has been created successfully.</p>
+
+        <h3>${title}</h3>
+
+        <p>🎮 Game: ${game}</p>
+        <p>📅 Date: ${date}</p>
+        <p>💰 Entry Fee: ₹${entryFee || 0}</p>
+        <p>🏆 Prize Pool: ₹${prizePool || 0}</p>
+        <p>👥 Maximum Players: ${maxPlayers || "Unlimited"}</p>
+
+        <br/>
+
+        <p>Good luck! 🔥</p>
+        <b>WhiteArmy Gaming</b>
+      </div>
+      `,
+    );
 
     return NextResponse.json(
       {

@@ -266,132 +266,128 @@ function Tournament() {
     }
   };
   return (
-    <div className="min-h-screen bg-[#0f0f0f] text-white px-5 py-6">
+    <main className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-red-950 px-5 py-10 text-white">
       {/* Title */}
-      <h1 className="mb-6 text-center text-3xl font-bold text-red-500 drop-shadow-[0_0_10px_rgba(255,0,0,0.5)] md:text-4xl">
-        🏆 Gaming Tournaments
+
+      <h1 className="mb-10 text-center text-5xl font-black">
+        🏆{" "}
+        <span className="bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
+          Gaming Tournaments
+        </span>
       </h1>
 
-      {/* Success Message */}
+      {/* Success */}
+
       {successMsg && (
-        <div className="mx-auto mb-5 max-w-md rounded-lg bg-green-500 p-3 text-center font-semibold text-black shadow-lg">
+        <div className="mx-auto mb-6 max-w-md rounded-xl border border-green-400 bg-green-500/20 p-4 text-center font-bold text-green-400 shadow-[0_0_25px_rgba(34,197,94,0.3)]">
           {successMsg}
         </div>
       )}
 
       {/* Create Button */}
+
       {user?.role === "leader" && (
-        <div className="mb-5 flex justify-center">
+        <div className="mb-8 flex justify-center">
           <button
             onClick={() => setShowForm(!showForm)}
-            className="rounded-xl bg-gradient-to-r from-red-600 to-red-400 px-6 py-3 font-bold text-white transition duration-300 hover:scale-105 hover:shadow-[0_0_15px_rgba(255,0,0,0.4)]"
+            className="
+rounded-xl
+bg-gradient-to-r
+from-red-600
+to-orange-500
+px-8 py-4
+font-black
+shadow-[0_0_30px_rgba(239,68,68,0.4)]
+transition
+hover:scale-105
+"
           >
             ➕ Create Tournament
           </button>
         </div>
       )}
 
-      {/* Create Form */}
+      {/* Form */}
+
       {showForm && (
         <form
           onSubmit={createTournament}
-          className="mx-auto mb-8 max-w-md rounded-2xl border border-zinc-800 bg-[#111] p-6 shadow-xl"
+          className="
+mx-auto mb-10
+max-w-md
+rounded-3xl
+border border-zinc-800
+bg-zinc-900/80
+p-7
+shadow-[0_0_40px_rgba(239,68,68,0.15)]
+backdrop-blur
+"
         >
-          {/* Title */}
-          <input
-            type="text"
-            placeholder="Tournament Title"
-            value={form.title}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                title: e.target.value,
-              })
-            }
-            className="mb-4 w-full rounded-lg border border-zinc-700 bg-[#1d1d1d] px-4 py-3 text-white outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
-          />
+          {[
+            ["title", "Tournament Title"],
+            ["game", "Game"],
+            ["entryFee", "Entry Fee ₹"],
+            ["prizePool", "Prize Pool ₹"],
+            ["maxPlayers", "Maximum Players"],
+          ].map(([name, placeholder]) => (
+            <input
+              key={name}
+              placeholder={placeholder}
+              className="
+mb-4
+w-full
+rounded-xl
+border border-zinc-700
+bg-black
+px-4 py-3
+text-white
+outline-none
+transition
+focus:border-red-500
+focus:ring-2
+focus:ring-red-500/30
+"
+            />
+          ))}
 
-          {/* Game */}
-          <input
-            type="text"
-            placeholder="Game"
-            value={form.game}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                game: e.target.value,
-              })
-            }
-            className="mb-4 w-full rounded-lg border border-zinc-700 bg-[#1d1d1d] px-4 py-3 text-white outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
-          />
-
-          {/* Date */}
           <input
             type="date"
-            value={form.date}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                date: e.target.value,
-              })
-            }
-            className="mb-4 w-full rounded-lg border border-zinc-700 bg-[#1d1d1d] px-4 py-3 text-white outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
+            className="
+mb-5
+w-full
+rounded-xl
+border border-zinc-700
+bg-black
+px-4 py-3
+text-white
+"
           />
 
-          {/* Entry Fee */}
-          <input
-            type="number"
-            placeholder="Entry Fee ₹"
-            value={form.entryFee}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                entryFee: e.target.value,
-              })
-            }
-            className="mb-4 w-full rounded-lg border border-zinc-700 bg-[#1d1d1d] px-4 py-3 text-white outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
-          />
-
-          {/* Prize Pool */}
-          <input
-            type="number"
-            placeholder="Prize Pool ₹"
-            value={form.prizePool}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                prizePool: e.target.value,
-              })
-            }
-            className="mb-4 w-full rounded-lg border border-zinc-700 bg-[#1d1d1d] px-4 py-3 text-white outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
-          />
-
-          {/* Max Players */}
-          <input
-            type="number"
-            placeholder="Maximum Players"
-            value={form.maxPlayers}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                maxPlayers: e.target.value,
-              })
-            }
-            className="mb-5 w-full rounded-lg border border-zinc-700 bg-[#1d1d1d] px-4 py-3 text-white outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
-          />
-
-          {/* Submit */}
           <button
-            type="submit"
-            className="w-full rounded-xl bg-gradient-to-r from-green-600 to-lime-400 py-3 font-bold text-black transition hover:scale-[1.02]"
+            className="
+w-full
+rounded-xl
+bg-gradient-to-r
+from-green-500
+to-lime-400
+py-3
+font-black
+text-black
+shadow-[0_0_25px_rgba(34,197,94,0.4)]
+hover:scale-105
+transition
+"
           >
             Create Tournament
           </button>
         </form>
       )}
 
-      {/* Tournament Grid */}
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+      {/* Tournament Cards */}
+
+      {/* Tournament Cards */}
+
+      <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
         {data.map((t) => {
           const joined = (t.players || []).some((p) => p._id === user?._id);
 
@@ -402,55 +398,79 @@ function Tournament() {
           return (
             <div
               key={t._id}
-              className={`relative overflow-hidden rounded-2xl border bg-gradient-to-br from-[#1a1a1a] to-[#111] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-red-500 hover:shadow-[0_0_18px_rgba(255,0,0,0.25)]
-            ${
-              t.resultDeclared
-                ? "border-yellow-400 shadow-[0_0_20px_rgba(255,215,0,0.4)]"
-                : "border-zinc-800"
-            }`}
+              className={`
+      relative overflow-hidden
+      rounded-3xl
+      border
+      bg-gradient-to-br
+      from-zinc-900
+      to-black
+      p-7
+      transition-all
+      duration-300
+      hover:-translate-y-2
+
+      ${
+        t.resultDeclared
+          ? "border-yellow-400 shadow-[0_0_35px_rgba(250,204,21,0.35)]"
+          : "border-zinc-800 hover:border-red-500 hover:shadow-[0_0_35px_rgba(239,68,68,0.3)]"
+      }
+      `}
             >
-              {/* Tournament Info */}
+              <h2 className="text-3xl font-black">{t.title}</h2>
 
-              <h2 className="mb-3 text-2xl font-bold text-white">{t.title}</h2>
+              <div className="mt-5 space-y-3 text-zinc-300">
+                <p>
+                  🎮 <span className="font-semibold text-white">{t.game}</span>
+                </p>
 
-              <p className="mb-2 text-zinc-300">🎮 {t.game}</p>
+                <p>📅 {t.date}</p>
 
-              <p className="mb-2 text-zinc-300">📅 {t.date}</p>
+                <p>
+                  💰 Entry :
+                  <span className="ml-2 font-bold text-green-400">
+                    ₹{t.entryFee || 0}
+                  </span>
+                </p>
 
-              <p className="mb-2 text-zinc-300">
-                💰 Entry Fee :
-                <span className="font-semibold text-green-400">
-                  {" "}
-                  ₹{t.entryFee || 0}
-                </span>
-              </p>
+                <p>
+                  🏆 Prize :
+                  <span className="ml-2 font-bold text-yellow-400">
+                    ₹{t.prizePool || 0}
+                  </span>
+                </p>
 
-              <p className="mb-2 text-zinc-300">
-                🏆 Prize Pool :
-                <span className="font-semibold text-yellow-400">
-                  {" "}
-                  ₹{t.prizePool || 0}
-                </span>
-              </p>
+                <p>
+                  👥
+                  <span className="font-bold text-red-400">
+                    {t.players?.length || 0}/{maxPlayers}
+                  </span>
+                  Players
+                </p>
+              </div>
 
-              <p className="mb-3 text-zinc-300">
-                👥 {t.players.length}/{maxPlayers} Players
-              </p>
-
-              {/* Timer */}
-
-              <p className="mb-4 font-bold text-yellow-400">⏰ {time[t._id]}</p>
-
-              {/* Winners */}
+              <div className="mt-5 rounded-xl bg-red-500/10 p-3 text-center font-bold text-yellow-400">
+                ⏰ {time[t._id]}
+              </div>
 
               {t.resultDeclared && (
-                <div className="mb-4 rounded-xl border-2 border-yellow-400 p-4 shadow-[0_0_20px_rgba(255,215,0,0.4)]">
-                  <h3 className="mb-3 text-lg font-bold text-yellow-400">
+                <div
+                  className="
+        mt-5
+        rounded-2xl
+        border
+        border-yellow-400
+        bg-yellow-400/10
+        p-5
+        shadow-[0_0_25px_rgba(250,204,21,0.2)]
+        "
+                >
+                  <h3 className="mb-3 text-xl font-black text-yellow-400">
                     🏆 Winners
                   </h3>
 
                   {t.winners.map((w, i) => (
-                    <p key={i} className="mb-1 text-white">
+                    <p key={i} className="text-zinc-200">
                       {i === 0 ? "🥇" : i === 1 ? "🥈" : "🥉"}{" "}
                       {w.playerId?.name}
                     </p>
@@ -458,23 +478,35 @@ function Tournament() {
                 </div>
               )}
 
-              {/* Join */}
+              {/* Join Button */}
 
               <button
                 onClick={() => join(t._id)}
                 disabled={joined || isFull}
-                className="mb-3 w-full rounded-xl bg-gradient-to-r from-green-600 to-lime-400 py-3 font-bold text-black transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
+                className="
+        mt-6
+        w-full
+        rounded-xl
+        bg-gradient-to-r
+        from-green-500
+        to-lime-400
+        py-3
+        font-black
+        text-black
+        transition
+        hover:scale-105
+        disabled:cursor-not-allowed
+        disabled:opacity-50
+        "
               >
                 {joined
-                  ? "Joined"
+                  ? "Joined ✅"
                   : isFull
-                    ? "Full"
+                    ? "Tournament Full"
                     : t.entryFee > 0
                       ? `Join ₹${t.entryFee}`
                       : "Join Free"}
               </button>
-
-              {/* Add Room */}
 
               {user?.role === "leader" && (
                 <button
@@ -484,113 +516,27 @@ function Tournament() {
                       id: t._id,
                     })
                   }
-                  className="mb-3 w-full rounded-xl bg-gradient-to-r from-orange-600 to-orange-400 py-3 font-bold text-white transition hover:scale-[1.02]"
+                  className="
+          mt-3
+          w-full
+          rounded-xl
+          bg-gradient-to-r
+          from-orange-600
+          to-orange-400
+          py-3
+          font-black
+          transition
+          hover:scale-105
+          "
                 >
-                  Add Room
+                  🎮 Add Room
                 </button>
-              )}
-
-              {/* Room Modal */}
-
-              {roomModal.open && roomModal.id === t._id && (
-                <div className="mt-4 flex flex-col gap-3 rounded-xl border border-zinc-700 bg-[#161616] p-4 animate-fadeIn">
-                  <input
-                    type="text"
-                    placeholder="Room ID"
-                    value={roomData.roomId}
-                    onChange={(e) =>
-                      setRoomData({
-                        ...roomData,
-                        roomId: e.target.value,
-                      })
-                    }
-                    className="w-full rounded-lg border border-zinc-700 bg-[#1d1d1d] px-4 py-3 text-white outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="Password"
-                    value={roomData.roomPass}
-                    onChange={(e) =>
-                      setRoomData({
-                        ...roomData,
-                        roomPass: e.target.value,
-                      })
-                    }
-                    className="w-full rounded-lg border border-zinc-700 bg-[#1d1d1d] px-4 py-3 text-white outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
-                  />
-
-                  <button
-                    onClick={addRoom}
-                    className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-blue-400 py-3 font-bold text-white transition hover:scale-[1.02]"
-                  >
-                    Save Room
-                  </button>
-                </div>
-              )}
-              {/* Result Section */}
-              {user?.role === "leader" && (
-                <>
-                  {t.resultDeclared ? (
-                    <div className="mt-3 rounded-lg bg-gradient-to-r from-green-400 to-green-300 py-3 text-center font-bold text-black">
-                      ✅ Result Declared
-                    </div>
-                  ) : (
-                    <button
-                      onClick={() =>
-                        setResultForm((prev) => ({
-                          ...prev,
-                          [t._id]: {},
-                        }))
-                      }
-                      className="mt-3 w-full rounded-xl bg-gradient-to-r from-blue-600 to-blue-400 py-3 font-bold text-white transition hover:scale-[1.02]"
-                    >
-                      Declare Result
-                    </button>
-                  )}
-
-                  {!t.resultDeclared && resultForm[t._id] && (
-                    <div className="mt-4 flex flex-col gap-3 rounded-xl border border-zinc-700 bg-[#181818] p-4">
-                      {(["winner", "second", "third"] as const).map((key) => (
-                        <select
-                          key={key}
-                          value={resultForm[t._id]?.[key] || ""}
-                          onChange={(e) =>
-                            setResultForm((prev) => ({
-                              ...prev,
-                              [t._id]: {
-                                ...prev[t._id],
-                                [key]: e.target.value,
-                              },
-                            }))
-                          }
-                          className="w-full rounded-lg border border-zinc-700 bg-[#1d1d1d] px-4 py-3 text-white outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
-                        >
-                          <option value="">Select {key}</option>
-
-                          {(t.players || []).map((pl) => (
-                            <option key={pl._id} value={pl._id}>
-                              {pl.name || pl.gameName}
-                            </option>
-                          ))}
-                        </select>
-                      ))}
-
-                      <button
-                        onClick={() => submitResult(t._id)}
-                        className="w-full rounded-xl bg-gradient-to-r from-green-600 to-lime-400 py-3 font-bold text-black transition hover:scale-[1.02]"
-                      >
-                        Submit Result
-                      </button>
-                    </div>
-                  )}
-                </>
               )}
             </div>
           );
         })}
       </div>
-    </div>
+    </main>
   );
 }
 

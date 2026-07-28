@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { connectDB } from "@/lib/mongodb";
 import Tournament from "@/model/tournament";
 import User from "@/model/user";
+import { sendEmail } from "@/lib/sendEmail";
 
 export async function POST(
   req: NextRequest,
@@ -30,7 +31,6 @@ export async function POST(
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    // Sirf leader/admin hi room add kar sakta hai
     if (admin.role !== "leader" && admin.role !== "admin") {
       return NextResponse.json(
         { message: "Only Leader/Admin can add room" },
@@ -49,7 +49,10 @@ export async function POST(
       );
     }
 
-    const tournament = await Tournament.findById(id);
+    const tournament = await Tournament.findById(id).populate(
+      "players",
+      "name email",
+    );
 
     if (!tournament) {
       return NextResponse.json(
@@ -62,6 +65,56 @@ export async function POST(
     tournament.roomPass = roomPass;
 
     await tournament.save();
+
+    // Send room details to all joined players
+
+    for (const player of tournament.players) {
+      await sendEmail(
+        player.email,
+        `Room Details Released - ${tournament.title} 🔥`,
+        `
+        <div style="font-family:Arial;padding:20px">
+
+          <h2>🔥 WhiteArmy Gaming</h2>
+
+          <p>Hello ${player.name},</p>
+
+          <p>
+            Room details for your tournament have been released.
+          </p>
+
+          <h3>${tournament.title}</h3>
+
+          <p>🎮 Game: ${tournament.game}</p>
+
+          <p>📅 Match Date: ${tournament.date}</p>
+
+          <hr/>
+
+          <h3>🎮 Room Details</h3>
+
+          <p>
+            🆔 Room ID:
+            <b>${roomId}</b>
+          </p>
+
+          <p>
+            🔑 Password:
+            <b>${roomPass}</b>
+          </p>
+
+          <br/>
+
+          <p>
+            Join on time and give your best! 🔥
+          </p>
+
+          <b>WhiteArmy Gaming</b>
+
+        </div>
+        `,
+      );
+    }
 
     return NextResponse.json({
       message: "Room details added successfully",

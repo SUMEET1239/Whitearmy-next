@@ -38,49 +38,67 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="flex items-center justify-between bg-black/80 px-6 py-3 text-white">
+    <nav className="sticky top-0 z-50 flex items-center justify-between border-b border-red-500/20 bg-gradient-to-r from-black via-zinc-950 to-black px-8 py-4 text-white shadow-[0_0_30px_rgba(239,68,68,0.12)] backdrop-blur-md">
       {/* Logo */}
       <h2
         onClick={() => router.push("/")}
-        className="cursor-pointer text-2xl font-bold text-red-500"
+        className="cursor-pointer text-3xl font-extrabold tracking-wide text-red-500 transition duration-300 hover:scale-105 hover:text-red-400"
       >
         🔥 WhiteArmy
       </h2>
 
       {/* Links */}
       <div className="flex items-center gap-6">
-        <Link href="/" className="transition hover:text-red-500">
+        <Link
+          href="/"
+          className="relative font-medium text-zinc-300 transition-all duration-300 hover:text-red-500 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-red-500 after:transition-all after:duration-300 hover:after:w-full"
+        >
           Home
         </Link>
 
-        <Link href="/players" className="transition hover:text-red-500">
+        <Link
+          href="/players"
+          className="relative font-medium text-zinc-300 transition-all duration-300 hover:text-red-500 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-red-500 after:transition-all after:duration-300 hover:after:w-full"
+        >
           Players
         </Link>
 
-        <Link href="/leaderboard" className="transition hover:text-red-500">
+        <Link
+          href="/leaderboard"
+          className="relative font-medium text-zinc-300 transition-all duration-300 hover:text-red-500 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-red-500 after:transition-all after:duration-300 hover:after:w-full"
+        >
           Leaderboard
         </Link>
 
         {!token ? (
           <>
-            <Link href="/login" className="transition hover:text-red-500">
+            <Link
+              href="/login"
+              className="rounded-md border border-zinc-700 px-4 py-2 text-zinc-300 transition-all duration-300 hover:border-red-500 hover:bg-red-500/10 hover:text-red-400"
+            >
               Login
             </Link>
 
-            <Link href="/register" className="transition hover:text-red-500">
+            <Link
+              href="/register"
+              className="rounded-md bg-gradient-to-r from-red-600 to-red-500 px-5 py-2 font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(239,68,68,0.5)]"
+            >
               Register
             </Link>
           </>
         ) : (
           <>
-            <Link href="/tournament" className="transition hover:text-red-500">
+            <Link
+              href="/tournament"
+              className="relative font-medium text-zinc-300 transition-all duration-300 hover:text-red-500 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-red-500 after:transition-all after:duration-300 hover:after:w-full"
+            >
               Tournaments
             </Link>
 
             <div className="relative">
               <div
                 onClick={() => setOpen(!open)}
-                className="flex cursor-pointer items-center gap-2 rounded-full border border-zinc-700 bg-zinc-900 px-4 py-2 transition hover:border-red-500"
+                className="flex cursor-pointer items-center gap-3 rounded-full border border-zinc-700 bg-zinc-900/80 px-4 py-2 transition-all duration-300 hover:border-red-500 hover:bg-zinc-800 hover:shadow-[0_0_20px_rgba(239,68,68,0.25)]"
               >
                 <Image
                   src={
@@ -92,44 +110,53 @@ export default function Navbar() {
                   alt={user.name || "User"}
                   width={40}
                   height={40}
-                  className="rounded-full object-cover"
+                  className="rounded-full border-2 border-red-500 object-cover"
                   unoptimized
                 />
 
-                <span>{user.name}</span>
+                <span className="font-medium text-zinc-200">{user.name}</span>
               </div>
 
               {open && (
-                <div className="absolute right-0 top-14 z-50 flex w-48 flex-col gap-3 rounded-lg border border-red-600 bg-zinc-900 p-4 shadow-lg">
-                  <p className="font-semibold">{user.name}</p>
+                <div className="absolute right-0 top-16 z-50 w-56 overflow-hidden rounded-xl border border-red-500/30 bg-zinc-950/95 p-2 shadow-[0_10px_35px_rgba(239,68,68,0.18)] backdrop-blur-xl">
+                  <div className="mb-2 border-b border-zinc-800 px-3 pb-2">
+                    <p className="truncate font-semibold text-white">
+                      {user.name}
+                    </p>
+                    {/* <p className="text-xs text-zinc-400">{user.email}</p> */}
+                  </div>
 
-                  <button
-                    onClick={() => router.push("/profile")}
-                    className="text-left transition hover:text-red-500"
-                  >
-                    Profile
-                  </button>
+                  <div className="space-y-1">
+                    <button
+                      onClick={() => router.push("/profile")}
+                      className="flex w-full items-center rounded-lg px-3 py-2 text-left text-zinc-300 transition-all duration-300 hover:bg-red-500/10 hover:text-red-500"
+                    >
+                      Profile
+                    </button>
 
-                  <button
-                    onClick={() => router.push("/dashboard")}
-                    className="text-left transition hover:text-red-500"
-                  >
-                    Dashboard
-                  </button>
+                    <button
+                      onClick={() => router.push("/dashboard")}
+                      className="flex w-full items-center rounded-lg px-3 py-2 text-left text-zinc-300 transition-all duration-300 hover:bg-red-500/10 hover:text-red-500"
+                    >
+                      Dashboard
+                    </button>
 
-                  <button
-                    onClick={() => router.push("/tournament")}
-                    className="text-left transition hover:text-red-500"
-                  >
-                    My Tournaments
-                  </button>
+                    <button
+                      onClick={() => router.push("/tournament")}
+                      className="flex w-full items-center rounded-lg px-3 py-2 text-left text-zinc-300 transition-all duration-300 hover:bg-red-500/10 hover:text-red-500"
+                    >
+                      My Tournaments
+                    </button>
 
-                  <button
-                    onClick={logout}
-                    className="text-left text-red-500 transition hover:text-red-400"
-                  >
-                    Logout
-                  </button>
+                    <div className="my-2 border-t border-zinc-800" />
+
+                    <button
+                      onClick={logout}
+                      className="flex w-full items-center rounded-lg px-3 py-2 text-left text-red-500 transition-all duration-300 hover:bg-red-500/10"
+                    >
+                      Logout
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
