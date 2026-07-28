@@ -332,35 +332,34 @@ backdrop-blur
           ].map(([name, placeholder]) => (
             <input
               key={name}
+              type={
+                name === "entryFee" ||
+                name === "prizePool" ||
+                name === "maxPlayers"
+                  ? "number"
+                  : "text"
+              }
               placeholder={placeholder}
-              className="
-mb-4
-w-full
-rounded-xl
-border border-zinc-700
-bg-black
-px-4 py-3
-text-white
-outline-none
-transition
-focus:border-red-500
-focus:ring-2
-focus:ring-red-500/30
-"
+              value={form[name as keyof typeof form]}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  [name]: e.target.value,
+                })
+              }
+              className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-white outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
             />
           ))}
-
           <input
             type="date"
-            className="
-mb-5
-w-full
-rounded-xl
-border border-zinc-700
-bg-black
-px-4 py-3
-text-white
-"
+            value={form.date}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                date: e.target.value,
+              })
+            }
+            className="mb-5 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-white"
           />
 
           <button
@@ -382,8 +381,6 @@ transition
           </button>
         </form>
       )}
-
-      {/* Tournament Cards */}
 
       {/* Tournament Cards */}
 
