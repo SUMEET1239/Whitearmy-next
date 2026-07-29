@@ -44,35 +44,39 @@ export default function PlayerProfile() {
   if (!player) return <Loader />;
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-black via-zinc-950 to-red-950 px-4 py-10">
-      <div className="w-full max-w-md rounded-3xl border border-red-500/30 bg-zinc-900/80 p-8 text-center shadow-[0_0_40px_rgba(239,68,68,0.2)] backdrop-blur">
-        <h2 className="text-4xl font-black text-white">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-black via-zinc-950 to-red-950 px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+      <div className="w-full max-w-md rounded-3xl border border-red-500/30 bg-zinc-900/80 p-6 text-center shadow-[0_0_40px_rgba(239,68,68,0.2)] backdrop-blur sm:p-8">
+        <h2 className="text-3xl font-black text-white sm:text-4xl">
           👤 <span className="text-red-500">Player Profile</span>
         </h2>
 
-        <p className="mt-2 text-sm text-zinc-400">
+        <p className="mt-2 text-sm text-zinc-400 sm:text-base">
           WhiteArmy Gaming Identity 🎮
         </p>
 
         {/* Avatar */}
 
-        <div className="mx-auto mt-8 flex h-24 w-24 items-center justify-center rounded-full border-4 border-red-500 bg-gradient-to-br from-red-600 to-orange-500 text-4xl font-black text-white shadow-[0_0_30px_rgba(239,68,68,0.6)]">
+        <div className="mx-auto mt-8 flex h-20 w-20 items-center justify-center rounded-full border-4 border-red-500 bg-gradient-to-br from-red-600 to-orange-500 text-3xl font-black text-white shadow-[0_0_30px_rgba(239,68,68,0.6)] sm:h-24 sm:w-24 sm:text-4xl">
           {player.gameName?.charAt(0).toUpperCase()}
         </div>
 
-        <h3 className="mt-6 text-3xl font-black text-white">
+        <h3 className="mt-6 break-words text-2xl font-black text-white sm:text-3xl">
           {player.gameName}
         </h3>
 
-        <p className="mt-1 text-zinc-400">@{player.userId?.name}</p>
+        <p className="mt-1 break-all text-sm text-zinc-400 sm:text-base">
+          @{player.userId?.name}
+        </p>
 
         {/* Stats */}
 
-        <div className="mt-8 grid grid-cols-2 gap-4 text-left">
+        <div className="mt-8 grid grid-cols-1 gap-4 text-left sm:grid-cols-2">
           <div className="rounded-xl border border-zinc-800 bg-black p-4">
             <p className="text-sm text-zinc-500">🆔 UID</p>
 
-            <p className="mt-1 font-bold text-white">{player.uid || "N/A"}</p>
+            <p className="mt-1 break-all font-bold text-white">
+              {player.uid || "N/A"}
+            </p>
           </div>
 
           <div className="rounded-xl border border-zinc-800 bg-black p-4">
@@ -100,18 +104,20 @@ export default function PlayerProfile() {
 
         {/* Performance */}
 
-        <div className="mt-6 rounded-2xl border border-red-500/20 bg-gradient-to-r from-red-950/50 to-black p-5">
-          <h3 className="mb-4 text-xl font-bold text-white">🔥 Performance</h3>
+        <div className="mt-6 rounded-2xl border border-red-500/20 bg-gradient-to-r from-red-950/50 to-black p-4 sm:p-5">
+          <h3 className="mb-4 text-lg font-bold text-white sm:text-xl">
+            🔥 Performance
+          </h3>
 
-          <div className="space-y-3 text-left">
-            <p className="flex justify-between text-zinc-300">
+          <div className="space-y-3 text-sm text-left sm:text-base">
+            <p className="flex items-center justify-between text-zinc-300">
               <span>🔥 Points</span>
               <span className="font-bold text-red-500">
                 {player.points || 0}
               </span>
             </p>
 
-            <p className="flex justify-between text-zinc-300">
+            <p className="flex items-center justify-between text-zinc-300">
               <span>🎮 Matches Played</span>
               <span className="font-bold text-cyan-400">
                 {player.matchesPlayed || 0}

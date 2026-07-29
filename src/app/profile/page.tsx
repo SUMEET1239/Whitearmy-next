@@ -143,8 +143,8 @@ export default function Profile() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-black via-zinc-950 to-red-950 px-4 py-10 text-white">
-      <div className="w-full max-w-md rounded-3xl border border-red-500/20 bg-zinc-900/80 p-8 shadow-[0_0_40px_rgba(239,68,68,0.15)] backdrop-blur">
+    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-black via-zinc-950 to-red-950 px-4 py-8 text-white sm:px-6 sm:py-10 lg:px-8">
+      <div className="w-full max-w-md rounded-3xl border border-red-500/20 bg-zinc-900/80 p-6 shadow-[0_0_40px_rgba(239,68,68,0.15)] backdrop-blur sm:p-8">
         <div className="flex flex-col items-center">
           <Image
             key={user.avatar}
@@ -159,32 +159,36 @@ export default function Profile() {
             width={110}
             height={110}
             unoptimized
-            className="rounded-full border-4 border-red-500 object-cover shadow-[0_0_25px_rgba(239,68,68,0.5)]"
+            className="h-24 w-24 rounded-full border-4 border-red-500 object-cover shadow-[0_0_25px_rgba(239,68,68,0.5)] sm:h-[110px] sm:w-[110px]"
           />
 
-          <h2 className="mt-5 text-3xl font-black text-white">{user.name}</h2>
+          <h2 className="mt-5 break-words text-center text-2xl font-black text-white sm:text-3xl">
+            {user.name}
+          </h2>
 
-          <p className="mt-1 text-zinc-400">{user.email}</p>
+          <p className="mt-1 break-all text-center text-sm text-zinc-400 sm:text-base">
+            {user.email}
+          </p>
 
           {/* Wallet */}
 
-          <div className="mt-8 w-full rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-zinc-900 to-black p-6 text-center shadow-[0_0_25px_rgba(34,211,238,0.15)]">
+          <div className="mt-8 w-full rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-zinc-900 to-black p-5 text-center shadow-[0_0_25px_rgba(34,211,238,0.15)] sm:p-6">
             <p className="text-sm text-zinc-400">💰 Wallet Balance</p>
 
-            <h1 className="mt-3 text-5xl font-black text-cyan-400">
+            <h1 className="mt-3 text-4xl font-black text-cyan-400 sm:text-5xl">
               ₹{user.wallet || 0}
             </h1>
           </div>
 
           {/* Transaction History */}
 
-          <div className="mt-10 w-full">
-            <h3 className="mb-5 text-xl font-bold text-white">
+          <div className="mt-8 w-full sm:mt-10">
+            <h3 className="mb-5 text-lg font-bold text-white sm:text-xl">
               📜 Transaction History
             </h3>
 
             {transactions.length === 0 ? (
-              <p className="rounded-xl border border-zinc-800 bg-black p-4 text-center text-zinc-500">
+              <p className="rounded-xl border border-zinc-800 bg-black p-4 text-center text-sm text-zinc-500 sm:text-base">
                 No transactions yet
               </p>
             ) : (
@@ -192,24 +196,24 @@ export default function Profile() {
                 {transactions.map((transaction, index) => (
                   <div
                     key={transaction._id || index}
-                    className={`flex items-center justify-between rounded-xl border bg-black p-4 transition hover:-translate-y-1 ${
+                    className={`flex items-center justify-between rounded-xl border bg-black p-3 transition hover:-translate-y-1 sm:p-4 ${
                       transaction.type === "credit"
                         ? "border-cyan-500/40"
                         : "border-red-500/40"
                     }`}
                   >
-                    <div>
-                      <p className="font-semibold text-white">
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-semibold text-white">
                         {transaction.reason}
                       </p>
 
-                      <span className="text-xs text-zinc-500">
+                      <span className="block text-xs text-zinc-500">
                         {new Date(transaction.date).toLocaleString()}
                       </span>
                     </div>
 
                     <div
-                      className={`font-bold ${
+                      className={`ml-3 whitespace-nowrap text-sm font-bold sm:text-base ${
                         transaction.type === "credit"
                           ? "text-cyan-400"
                           : "text-red-500"
@@ -226,8 +230,8 @@ export default function Profile() {
 
           {/* Upload Avatar */}
 
-          <div className="mt-10 w-full rounded-2xl border border-zinc-800 bg-black p-5">
-            <h3 className="mb-4 font-bold">🖼️ Update Avatar</h3>
+          <div className="mt-8 w-full rounded-2xl border border-zinc-800 bg-black p-5 sm:mt-10">
+            <h3 className="mb-4 text-lg font-bold">🖼️ Update Avatar</h3>
 
             <input
               type="file"
@@ -235,12 +239,12 @@ export default function Profile() {
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setFile(e.target.files?.[0] || null)
               }
-              className="mb-4 w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm file:mr-4 file:rounded-lg file:border-0 file:bg-red-600 file:px-4 file:py-2 file:text-white"
+              className="mb-4 w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm file:mr-2 file:mb-2 file:rounded-lg file:border-0 file:bg-red-600 file:px-4 file:py-2 file:text-white sm:file:mr-4 sm:file:mb-0"
             />
 
             <button
               onClick={uploadAvatar}
-              className="w-full rounded-xl bg-gradient-to-r from-red-600 to-red-500 py-3 font-bold transition hover:scale-105 hover:shadow-[0_0_25px_rgba(239,68,68,0.5)]"
+              className="w-full rounded-xl bg-gradient-to-r from-red-600 to-red-500 py-3 font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(239,68,68,0.5)]"
             >
               Upload Avatar
             </button>
@@ -249,19 +253,19 @@ export default function Profile() {
           {/* Add Money */}
 
           <div className="mt-6 w-full rounded-2xl border border-zinc-800 bg-black p-5">
-            <h3 className="mb-4 font-bold">💳 Add Wallet Balance</h3>
+            <h3 className="mb-4 text-lg font-bold">💳 Add Wallet Balance</h3>
 
             <input
               type="number"
               placeholder="Enter Amount"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="mb-4 w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3 text-white outline-none focus:border-green-500"
+              className="mb-4 w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3 text-sm text-white outline-none focus:border-green-500 sm:text-base"
             />
 
             <button
               onClick={payNow}
-              className="w-full rounded-xl bg-gradient-to-r from-green-600 to-emerald-500 py-3 font-bold transition hover:scale-105 hover:shadow-[0_0_25px_rgba(34,197,94,0.4)]"
+              className="w-full rounded-xl bg-gradient-to-r from-green-600 to-emerald-500 py-3 font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(34,197,94,0.4)]"
             >
               💳 Add Money
             </button>

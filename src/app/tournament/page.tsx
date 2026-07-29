@@ -266,10 +266,10 @@ function Tournament() {
     }
   };
   return (
-    <main className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-red-950 px-5 py-10 text-white">
+    <main className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-red-950 px-4 py-8 text-white sm:px-6 sm:py-10 lg:px-8">
       {/* Title */}
 
-      <h1 className="mb-10 text-center text-5xl font-black">
+      <h1 className="mb-8 text-center text-3xl font-black sm:mb-10 sm:text-4xl lg:text-5xl">
         🏆{" "}
         <span className="bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
           Gaming Tournaments
@@ -279,7 +279,7 @@ function Tournament() {
       {/* Success */}
 
       {successMsg && (
-        <div className="mx-auto mb-6 max-w-md rounded-xl border border-green-400 bg-green-500/20 p-4 text-center font-bold text-green-400 shadow-[0_0_25px_rgba(34,197,94,0.3)]">
+        <div className="mx-auto mb-6 w-full max-w-md rounded-xl border border-green-400 bg-green-500/20 p-4 text-center text-sm font-bold text-green-400 shadow-[0_0_25px_rgba(34,197,94,0.3)] sm:text-base">
           {successMsg}
         </div>
       )}
@@ -290,17 +290,7 @@ function Tournament() {
         <div className="mb-8 flex justify-center">
           <button
             onClick={() => setShowForm(!showForm)}
-            className="
-rounded-xl
-bg-gradient-to-r
-from-red-600
-to-orange-500
-px-8 py-4
-font-black
-shadow-[0_0_30px_rgba(239,68,68,0.4)]
-transition
-hover:scale-105
-"
+            className="w-full max-w-xs rounded-xl bg-gradient-to-r from-red-600 to-orange-500 px-6 py-3 font-black shadow-[0_0_30px_rgba(239,68,68,0.4)] transition-all duration-300 hover:scale-105 sm:w-auto sm:px-8 sm:py-4"
           >
             ➕ Create Tournament
           </button>
@@ -312,16 +302,7 @@ hover:scale-105
       {showForm && (
         <form
           onSubmit={createTournament}
-          className="
-mx-auto mb-10
-max-w-md
-rounded-3xl
-border border-zinc-800
-bg-zinc-900/80
-p-7
-shadow-[0_0_40px_rgba(239,68,68,0.15)]
-backdrop-blur
-"
+          className="mx-auto mb-10 w-full max-w-md rounded-3xl border border-zinc-800 bg-zinc-900/80 p-5 shadow-[0_0_40px_rgba(239,68,68,0.15)] backdrop-blur sm:p-7"
         >
           {[
             ["title", "Tournament Title"],
@@ -347,7 +328,7 @@ backdrop-blur
                   [name]: e.target.value,
                 })
               }
-              className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-white outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/30"
+              className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-sm text-white outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/30 sm:text-base"
             />
           ))}
           <input
@@ -359,24 +340,10 @@ backdrop-blur
                 date: e.target.value,
               })
             }
-            className="mb-5 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-white"
+            className="mb-5 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-sm text-white sm:text-base"
           />
 
-          <button
-            className="
-w-full
-rounded-xl
-bg-gradient-to-r
-from-green-500
-to-lime-400
-py-3
-font-black
-text-black
-shadow-[0_0_25px_rgba(34,197,94,0.4)]
-hover:scale-105
-transition
-"
-          >
+          <button className="w-full rounded-xl bg-gradient-to-r from-green-500 to-lime-400 py-3 font-black text-black shadow-[0_0_25px_rgba(34,197,94,0.4)] transition-all duration-300 hover:scale-105">
             Create Tournament
           </button>
         </form>
@@ -384,7 +351,7 @@ transition
 
       {/* Tournament Cards */}
 
-      <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {data.map((t) => {
           const joined = (t.players || []).some((p) => p._id === user?._id);
 
@@ -402,7 +369,7 @@ transition
       bg-gradient-to-br
       from-zinc-900
       to-black
-      p-7
+      p-5 sm:p-7
       transition-all
       duration-300
       hover:-translate-y-2
@@ -414,9 +381,9 @@ transition
       }
       `}
             >
-              <h2 className="text-3xl font-black">{t.title}</h2>
+              <h2 className="text-2xl font-black sm:text-3xl">{t.title}</h2>
 
-              <div className="mt-5 space-y-3 text-zinc-300">
+              <div className="mt-5 space-y-3 text-sm text-zinc-300 sm:text-base">
                 <p>
                   🎮 <span className="font-semibold text-white">{t.game}</span>
                 </p>
@@ -446,28 +413,21 @@ transition
                 </p>
               </div>
 
-              <div className="mt-5 rounded-xl bg-red-500/10 p-3 text-center font-bold text-yellow-400">
+              <div className="mt-5 rounded-xl bg-red-500/10 p-3 text-center text-sm font-bold text-yellow-400 sm:text-base">
                 ⏰ {time[t._id]}
               </div>
 
               {t.resultDeclared && (
-                <div
-                  className="
-        mt-5
-        rounded-2xl
-        border
-        border-yellow-400
-        bg-yellow-400/10
-        p-5
-        shadow-[0_0_25px_rgba(250,204,21,0.2)]
-        "
-                >
-                  <h3 className="mb-3 text-xl font-black text-yellow-400">
+                <div className="mt-5 rounded-2xl border border-yellow-400 bg-yellow-400/10 p-4 shadow-[0_0_25px_rgba(250,204,21,0.2)] sm:p-5">
+                  <h3 className="mb-3 text-lg font-black text-yellow-400 sm:text-xl">
                     🏆 Winners
                   </h3>
 
                   {t.winners.map((w, i) => (
-                    <p key={i} className="text-zinc-200">
+                    <p
+                      key={i}
+                      className="break-words text-sm text-zinc-200 sm:text-base"
+                    >
                       {i === 0 ? "🥇" : i === 1 ? "🥈" : "🥉"}{" "}
                       {w.playerId?.name}
                     </p>
@@ -480,21 +440,7 @@ transition
               <button
                 onClick={() => join(t._id)}
                 disabled={joined || isFull}
-                className="
-        mt-6
-        w-full
-        rounded-xl
-        bg-gradient-to-r
-        from-green-500
-        to-lime-400
-        py-3
-        font-black
-        text-black
-        transition
-        hover:scale-105
-        disabled:cursor-not-allowed
-        disabled:opacity-50
-        "
+                className="mt-6 w-full rounded-xl bg-gradient-to-r from-green-500 to-lime-400 py-3 font-black text-black transition-all duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {joined
                   ? "Joined ✅"
@@ -513,18 +459,7 @@ transition
                       id: t._id,
                     })
                   }
-                  className="
-          mt-3
-          w-full
-          rounded-xl
-          bg-gradient-to-r
-          from-orange-600
-          to-orange-400
-          py-3
-          font-black
-          transition
-          hover:scale-105
-          "
+                  className="mt-3 w-full rounded-xl bg-gradient-to-r from-orange-600 to-orange-400 py-3 font-black transition-all duration-300 hover:scale-105"
                 >
                   🎮 Add Room
                 </button>

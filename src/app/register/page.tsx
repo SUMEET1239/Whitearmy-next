@@ -36,19 +36,19 @@ export default function Register() {
   };
 
   return (
-    <div className="relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-gradient-to-br from-black via-zinc-950 to-red-950 px-4">
+    <div className="relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-gradient-to-br from-black via-zinc-950 to-red-950 px-4 py-8 sm:px-6 lg:px-8">
       {/* Glow */}
-      <div className="absolute h-72 w-72 rounded-full bg-red-600/20 blur-3xl" />
+      <div className="absolute h-56 w-56 rounded-full bg-red-600/20 blur-3xl sm:h-72 sm:w-72" />
 
       <form
         onSubmit={submit}
-        className="relative z-10 w-full max-w-md rounded-3xl border border-red-500/30 bg-zinc-900/80 p-8 text-center shadow-[0_0_40px_rgba(239,68,68,0.2)] backdrop-blur"
+        className="relative z-10 w-full max-w-md rounded-3xl border border-red-500/30 bg-zinc-900/80 p-6 text-center shadow-[0_0_40px_rgba(239,68,68,0.2)] backdrop-blur sm:p-8"
       >
-        <h2 className="text-4xl font-black text-white">
+        <h2 className="text-3xl font-black leading-tight text-white sm:text-4xl">
           Join <span className="text-red-500">WhiteArmy</span>
         </h2>
 
-        <p className="mt-2 text-sm text-zinc-400">
+        <p className="mt-3 text-sm text-zinc-400 sm:text-base">
           Create your account and enter the battlefield 🎮
         </p>
 
@@ -58,7 +58,7 @@ export default function Register() {
             placeholder="Enter your name"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.4)]"
+            className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-sm text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.4)] sm:text-base"
           />
 
           <input
@@ -66,7 +66,7 @@ export default function Register() {
             placeholder="Enter your email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.4)]"
+            className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-sm text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.4)] sm:text-base"
           />
 
           <input
@@ -74,7 +74,7 @@ export default function Register() {
             placeholder="Create password"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.4)]"
+            className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-sm text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.4)] sm:text-base"
           />
 
           <button

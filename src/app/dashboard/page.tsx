@@ -94,16 +94,16 @@ export default function Dashboard() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-red-950 px-4 py-12 text-white">
+      <div className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-red-950 px-4 py-8 text-white sm:px-6 sm:py-10 lg:px-8 lg:py-12">
         <div className="mx-auto max-w-5xl text-center">
-          <h1 className="text-5xl font-black">
+          <h1 className="text-3xl font-black sm:text-4xl lg:text-5xl">
             🔥{" "}
             <span className="bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
               Dashboard
             </span>
           </h1>
 
-          <h2 className="mt-4 text-2xl font-bold text-zinc-300">
+          <h2 className="mt-4 text-lg font-bold text-zinc-300 sm:text-xl lg:text-2xl">
             Welcome,{" "}
             <span className="text-red-500">{user?.name || "Player"}</span> 🔥
           </h2>
@@ -111,19 +111,19 @@ export default function Dashboard() {
           {/* Player Profile Card */}
 
           {profile && (
-            <div className="mx-auto mt-10 w-full max-w-md rounded-3xl border border-red-500/30 bg-zinc-900/80 p-8 shadow-[0_0_40px_rgba(239,68,68,0.2)] backdrop-blur transition hover:-translate-y-2">
-              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-red-600 to-orange-500 text-3xl font-black shadow-[0_0_25px_rgba(239,68,68,0.5)]">
+            <div className="mx-auto mt-8 w-full max-w-md rounded-3xl border border-red-500/30 bg-zinc-900/80 p-5 shadow-[0_0_40px_rgba(239,68,68,0.2)] backdrop-blur transition hover:-translate-y-2 sm:mt-10 sm:p-8">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-red-600 to-orange-500 text-2xl font-black shadow-[0_0_25px_rgba(239,68,68,0.5)] sm:h-20 sm:w-20 sm:text-3xl">
                 {profile.gameName?.charAt(0).toUpperCase()}
               </div>
 
-              <h3 className="mt-5 text-3xl font-black text-white">
+              <h3 className="mt-4 text-2xl font-black text-white sm:mt-5 sm:text-3xl">
                 {profile.gameName}
               </h3>
 
-              <div className="mt-6 grid grid-cols-2 gap-4 text-left">
+              <div className="mt-6 grid grid-cols-1 gap-4 text-left sm:grid-cols-2">
                 <div className="rounded-xl border border-zinc-800 bg-black p-4">
                   <p className="text-sm text-zinc-500">🆔 UID</p>
-                  <p className="mt-1 font-bold">{profile.uid}</p>
+                  <p className="mt-1 break-all font-bold">{profile.uid}</p>
                 </div>
 
                 <div className="rounded-xl border border-zinc-800 bg-black p-4">
@@ -152,9 +152,9 @@ export default function Dashboard() {
 
           <form
             onSubmit={submit}
-            className="mx-auto mt-12 w-full max-w-md rounded-3xl border border-zinc-800 bg-zinc-900/80 p-8 shadow-[0_0_30px_rgba(239,68,68,0.15)] backdrop-blur"
+            className="mx-auto mt-10 w-full max-w-md rounded-3xl border border-zinc-800 bg-zinc-900/80 p-5 shadow-[0_0_30px_rgba(239,68,68,0.15)] backdrop-blur sm:mt-12 sm:p-8"
           >
-            <h3 className="mb-6 text-2xl font-black text-white">
+            <h3 className="mb-6 text-xl font-black text-white sm:text-2xl">
               🎮 Create Gaming Profile
             </h3>
 
@@ -163,7 +163,7 @@ export default function Dashboard() {
               placeholder="Free Fire UID"
               value={form.uid}
               onChange={(e) => setForm({ ...form, uid: e.target.value })}
-              className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.3)]"
+              className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-sm text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.3)] sm:text-base"
             />
 
             <input
@@ -171,7 +171,7 @@ export default function Dashboard() {
               placeholder="Game Name"
               value={form.gameName}
               onChange={(e) => setForm({ ...form, gameName: e.target.value })}
-              className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.3)]"
+              className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-sm text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.3)] sm:text-base"
             />
 
             <input
@@ -179,7 +179,7 @@ export default function Dashboard() {
               placeholder="Rank"
               value={form.rank}
               onChange={(e) => setForm({ ...form, rank: e.target.value })}
-              className="mb-4 w-full rounded-xl border border-zinc_700 bg-black px-4 py-3 text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.3)]"
+              className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-sm text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.3)] sm:text-base"
             />
 
             <input
@@ -187,7 +187,7 @@ export default function Dashboard() {
               placeholder="Role"
               value={form.role}
               onChange={(e) => setForm({ ...form, role: e.target.value })}
-              className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.3)]"
+              className="mb-4 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-sm text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.3)] sm:text-base"
             />
 
             <input
@@ -195,12 +195,12 @@ export default function Dashboard() {
               placeholder="Level"
               value={form.level}
               onChange={(e) => setForm({ ...form, level: e.target.value })}
-              className="mb-6 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.3)]"
+              className="mb-6 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-sm text-white outline-none transition focus:border-red-500 focus:shadow-[0_0_15px_rgba(239,68,68,0.3)] sm:text-base"
             />
 
             <button
               type="submit"
-              className="w-full rounded-xl bg-gradient-to-r from-red-600 to-orange-500 py-3 font-bold transition hover:scale-105 hover:shadow-[0_0_30px_rgba(239,68,68,0.5)]"
+              className="w-full rounded-xl bg-gradient-to-r from-red-600 to-orange-500 py-3 font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(239,68,68,0.5)]"
             >
               🚀 Save Profile
             </button>
